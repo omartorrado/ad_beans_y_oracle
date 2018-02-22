@@ -154,7 +154,7 @@ public class BaseDatos {
         int insertada = 0;
         try {
             Statement st = conexion.createStatement();
-            ResultSet rs = st.executeQuery("insert into ventas values("+")");
+            st.executeUpdate("insert into ventas values("+ven.getNumeroventa()+","+ven.getIdproducto()+",date '"+ven.getFechaventa()+"',"+ven.getCantidad()+")");
             insertada=1;
         } catch (SQLException ex) {
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
@@ -177,7 +177,9 @@ public class BaseDatos {
     }
 
     public int actualizarStock(Producto producto, int cantidade, Date dataActual) {
-
+        /*
+        TERMINAR ESTE METODO
+        */
         return -1;
     }
 
