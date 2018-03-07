@@ -54,6 +54,7 @@ public class BaseDatos {
         try {
             conexion = DriverManager.getConnection(ulrjdbc);
             this.crearConexion = true;
+            System.out.println("Conectado");
         } catch (SQLException ex) {
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -177,10 +178,35 @@ public class BaseDatos {
     }
 
     public int actualizarStock(Producto producto, int cantidade, Date dataActual) {
-        /*
-        TERMINAR ESTE METODO
-        */
-        return -1;
+        Pedido p=new Pedido();
+        producto.addPropertyChangeListener(p);
+        
+        int nuevoStock=producto.getStockactual()-cantidade;
+        
+        producto.setStockactual(nuevoStock);
+        if(p.isPedir()){
+            p.setCantidad(cantidade);
+            p.setNumeropedido(obterUltimoID("pedidos")+1);
+            p.setIdproducto(producto.getIdproducto());
+            p.setFecha(dataActual);
+            try {
+                Statement st=conexion.createStatement();
+                st.executeUpdate("insert into pedidos values("+p.getNumeropedido()+","+p.getIdproducto()+",date '"+p.getFecha()+"',"+p.getCantidad()+")");
+            } catch (SQLException ex) {
+                Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return -1;
+        }else{
+            try{
+                Statement st=conexion.createStatement();
+                st.executeUpdate("update productos set stockactual="+producto.getStockactual()+" where id="+producto.getIdproducto());
+            }catch(SQLException ex) {
+                Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+            return 1;
+        }
+        
+        
     }
 
 }

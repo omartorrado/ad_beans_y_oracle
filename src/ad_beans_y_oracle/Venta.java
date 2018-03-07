@@ -58,6 +58,11 @@ public class Venta implements Serializable{
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    @Override
+    public String toString() {
+        return "Venta{" + "numeroventa=" + numeroventa + ", idproducto=" + idproducto + ", fechaventa=" + fechaventa + ", cantidad=" + cantidad + '}';
+    }
     
     
 }
