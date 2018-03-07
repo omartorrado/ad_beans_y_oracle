@@ -74,7 +74,7 @@ public class Ad_beans_y_oracle {
         //si el producto no es nulo
         if (p != null) {
             //si el stock menos la cantidad no es inferior al stockminimo
-            if (p.getStockactual() - cantidad >= p.getStockminimo()) {
+            //if (p.getStockactual() - cantidad >= p.getStockminimo()) { //no tiene sentido comprobar esto aqui
                 int id = db.obterUltimoID("ventas") + 1;
                 Venta v = new Venta(id, p.getIdproducto(), getCurrentDate(), cantidad);
                 System.out.println(v.getNumeroventa() + "," + v.getFechaventa() + "," + v.getCantidad());
@@ -86,7 +86,7 @@ public class Ad_beans_y_oracle {
                     System.out.println("Venta realizada: " + i);
                 }
                 
-            }
+            //}
         }
     }
 }

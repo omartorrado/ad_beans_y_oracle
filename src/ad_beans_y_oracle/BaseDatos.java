@@ -184,6 +184,7 @@ public class BaseDatos {
         int nuevoStock=producto.getStockactual()-cantidade;
         
         producto.setStockactual(nuevoStock);
+        System.out.println(p.isPedir());
         if(p.isPedir()){
             p.setCantidad(cantidade);
             p.setNumeropedido(obterUltimoID("pedidos")+1);
@@ -193,8 +194,9 @@ public class BaseDatos {
                 Statement st=conexion.createStatement();
                 st.executeUpdate("insert into pedidos values("+p.getNumeropedido()+","+p.getIdproducto()+",date '"+p.getFecha()+"',"+p.getCantidad()+")");
             } catch (SQLException ex) {
-                Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);                
             }
+            System.out.println("Stock insuficiente, realizando pedido");
             return -1;
         }else{
             try{
@@ -203,6 +205,7 @@ public class BaseDatos {
             }catch(SQLException ex) {
                 Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
             }            
+            System.out.println("Realizando Venta");
             return 1;
         }
         
